@@ -81,16 +81,22 @@
     <ClInclude Include="log.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
-    <ClInclude Include="bottomlayer.h">
+    <ClInclude Include="cursor.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="bulletshot.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="layer.h">
+      <Filter>Header Files\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
     <ClInclude Include="map.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="layers.h">
+    <ClInclude Include="mainmenu.h">
       <Filter>Header Files\objects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,16 +140,22 @@
     <ClCompile Include="player.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
-    <ClCompile Include="bottomlayer.cpp">
+    <ClCompile Include="cursor.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletshot.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="layer.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
     <ClCompile Include="map.cpp">
       <Filter>Source Files\tools</Filter>
     </ClCompile>
-    <ClCompile Include="sprite.cpp">
-      <Filter>Source Files\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="layers.cpp">
+    <ClCompile Include="mainmenu.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>

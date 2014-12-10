@@ -7,26 +7,15 @@
 
 
 
-Object::~Object()
+
+Object::Object()
 {
-	delete texture;
-	texture = nullptr;
+	x = y = 0;
+	width = height = 0;
+	priority = 0;
 }
 
-void Object::getTileCoords(int tile, int& x, int& y)
-{
-	// Tileid 0 means no tile, so the ids actually start from 1
-	tile--;
-
-	int tileXcount = texture->getSize().x / (tileSize.x + tileSize.s);
-
-	x = (tile % tileXcount) * (tileSize.x + tileSize.s);
-	y = (tile / tileXcount) * (tileSize.x + tileSize.s);
-}
-
-
-Object::Object(float x, float y, const sf::Texture& texture, TileSize tileSize)
-	: tileSize(tileSize)
+Object::Object(float x, float y, const sf::Texture& texture)
 {
 	this->x = x;
 	this->y = y;
@@ -37,16 +26,13 @@ Object::Object(float x, float y, const sf::Texture& texture, TileSize tileSize)
 	height = (float)texture.getSize().y;
 }
 
-
 void Object::Draw(sf::RenderWindow& window)
 {
 	sprite.setPosition(x, y);
 	window.draw(sprite);
 }
 
-
-
-bool Object::Intersects(const Object& obj, unsigned int* edges) const
+bool Object::Intersects(const Object& obj, unsigned int* layer) const
 {
 	unsigned char tmpEdges = 0;
 
@@ -83,7 +69,21 @@ bool Object::Intersects(const Object& obj, unsigned int* edges) const
 	return (tmpEdges != 0);
 }
 
+TileObject::~TileObject()
+{
+	delete texture;
+	texture = nullptr;
+}
+
+void TileObject::getTileCoords(int tile, int& x, int& y)
+{
+	// Tileid 0 means no tile, so the ids actually start from 1
+	tile--;
+
+	int tileXcount = texture->getSize().x / (tileSize.x + tileSize.s);
+
+	x = (tile % tileXcount) * (tileSize.x + tileSize.s);
+	y = (tile / tileXcount) * (tileSize.x + tileSize.s);
 
 
-
-
+}

@@ -2,7 +2,9 @@
 #ifndef __state_machine__
 #define __state_machine__
 
+
 #include <stack>
+
 #include "state_base.h"
 #include "object.h"
 #include "options.h"
@@ -25,12 +27,14 @@ public:
 protected:
 	bool inited;
 	sf::RenderWindow window;
+	
 
 	// State stack
 	std::stack<StateBase*> states;
 
 	Options options;
 	Resources resources;
+	
 };
 
 

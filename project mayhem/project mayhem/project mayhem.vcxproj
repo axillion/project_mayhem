@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\Devs\libs\jsoncpp-master\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Devs\libs\jsoncpp-master\lib\lib_json;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Devs\libs\jsoncpp-master\lib\lib_json;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -61,7 +61,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lib_json-d-mtd-win32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lib_json-d-mtd-win32.lib;sfml-audio-s-d.lib;sfml-main-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;winmm.lib;ws2_32.lib;opengl32.lib;openal32.lib;glew.lib;jpeg.lib;sndfile.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -83,10 +83,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="bottomlayer.h" />
+    <ClInclude Include="bulletshot.h" />
+    <ClInclude Include="cursor.h" />
     <ClInclude Include="items.h" />
-    <ClInclude Include="layers.h" />
+    <ClInclude Include="layer.h" />
     <ClInclude Include="log.h" />
+    <ClInclude Include="mainmenu.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="options.h" />
@@ -105,9 +107,11 @@
     <ClInclude Include="weapons.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bottomlayer.cpp" />
-    <ClCompile Include="layers.cpp" />
+    <ClCompile Include="bulletshot.cpp" />
+    <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="layer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainmenu.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="player.cpp" />

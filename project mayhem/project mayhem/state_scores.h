@@ -10,7 +10,7 @@ class Scores;
 class StateScores : public StateBase
 {
 public:
-	StateScores(sf::RenderWindow& window, const Options& options, const Resources& resources);
+	StateScores(sf::RenderWindow& window, const Options& options, const Resources& resources, const sf::View view);
 	virtual StateBase* Process(float deltaTime);
 };
 

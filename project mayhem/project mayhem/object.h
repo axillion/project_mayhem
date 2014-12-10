@@ -5,26 +5,12 @@
 #include <list>
 
 namespace sf {
-
 	class RenderWindow;
 	class Sprite;
 
 }
 
-/*
-namespace std {
-
-	class objects;
-
-}
-*/
-
-struct ObjectComparer;
-
-
-
 // Small helper struct that contains tile size information
-
 struct TileSize
 {
 	int x; // Width
@@ -32,25 +18,13 @@ struct TileSize
 	int s; // Spacing
 };
 
+
+struct ObjectComparer;
+
 class Object
 {
-
-	// Map needs to access protected/private data
-	friend class Map;
-
 public:
-
-	Object(TileSize tileSize) : tileSize(tileSize) { }
-	
-
-	virtual void process(float deltaTime) {}
-	virtual void draw(sf::RenderWindow& window) {}
-
-	// Calculate x and y position of given tile in the texture
-	void getTileCoords(int tile, int& x, int& y);
-
-	const TileSize tileSize;
-
+	bool tobeRemoved = false;
 	// Edges returned by intersects hit detection algorithm
 	enum Direction
 	{
@@ -60,8 +34,8 @@ public:
 		RIGHT = (1 << 3)
 	};
 
-	//Object();
-	Object(float x, float y, const sf::Texture& texture, TileSize tileSize);
+	Object();
+	Object(float x, float y, const sf::Texture& texture);
 
 	const float GetX() const { return x; }
 	const float GetY() const { return y; }
@@ -72,26 +46,54 @@ public:
 	virtual void Draw(sf::RenderWindow& window);
 
 	// Called when this object hit another object (never itself)
-	virtual void Hit(Object& obj, unsigned int edges) {}
+	virtual void Hit(TileObject& objects, unsigned int layer) {}
 
 	// Returns true on object overlap.
+
 	// Optional edges returned is from this object's view.
-	virtual bool Intersects(const Object& obj, unsigned int* edges = nullptr) const;
+	virtual bool Intersects(const Object& obj, unsigned int* layer = nullptr) const;
 
 	bool operator<(const Object& obj2) const { return priority < obj2.priority; }
-	virtual ~Object();
-	
+	std::list<Object*> Objectlist;
+
+
+	const virtual sf::Vector2f GetPosition(){
+		return sf::Vector2f(x, y);
+	}
 
 protected:
 	float x, y, width, height;
 	sf::Sprite sprite;
-	sf::Texture* texture;
-	//std::list<Object*> objects;
+	int priority;
+
+};
+
+	
+class TileObject
+{
+	// Map needs to access protected/private data
+	friend class Map;
+
+public:
+	TileObject(TileObject::TileSize tileSize) : tileSize(tileSize) { }
+	virtual ~TileObject();
+
+	virtual void process(float deltaTime) {}
+	virtual void draw(sf::RenderWindow& window) {}
+
+	// Calculate x and y position of given tile in the texture
+	void TileObject::getTileCoords(int tile, int& x, int& y);
+	
 	
 
-	bool drawtobothwindows = false;
-	int priority;
+	const TileSize tileSize;
+
+protected:
+	sf::Texture* texture;
+
+
 };
+
 
 struct ObjectPointerComparer
 {

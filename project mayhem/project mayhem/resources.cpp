@@ -20,7 +20,10 @@ bool Resources::Init()
 	{
 		{ Texture::PLAYER1, "gfx/player1.png" },
 		{ Texture::PLAYER2, "gfx/player1.png" },
-		//{Texture::BOTTOMLAYER,"gfx/mayhemlvl1.png"}
+		{Texture::CURSOR, "gfx/cursor.png"},
+		{ Texture::BULLET, "gfx/bullet.png" },
+		{ Texture::MAINMENUIMAGE, "gfx/project_mayhem.png" }
+
 
 	};
 

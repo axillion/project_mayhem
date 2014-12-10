@@ -11,8 +11,9 @@ public:
 	{
 		PLAYER1,
 		PLAYER2,
-	//	LAYER,
-	//	BOTTOMLAYER,
+		CURSOR,
+		MAINMENUIMAGE,
+		BULLET,
 		COUNT
 
 	};

@@ -6,7 +6,7 @@
 class StatePause : public StateBase
 {
 public:
-	StatePause(sf::RenderWindow& window, const Options& options, const Resources& resources);
+	StatePause(sf::RenderWindow& window, const Options& options, const Resources& resources, const sf::View view, const sf::Font& font);
 	virtual StateBase* Process(float deltaTime);
 	virtual void Draw();
 

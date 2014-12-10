@@ -2,11 +2,6 @@
 
 #include "sprite.h"
 
-Sprite::~Sprite()
-{
-
-}
-
 void Sprite::process(float deltaTime)
 {
 	// Go to next animation frame if required

@@ -1,4 +1,3 @@
-
 #include <fstream>
 
 #include <json/json.h>
@@ -7,9 +6,9 @@
 #include "map.h"
 #include "object.h"
 #include "sprite.h"
-#include "layers.h"
+#include "layer.h"
 
-bool Map::load(std::string filename, std::list<Object*>& objects)
+bool Map::load(std::string filename, std::list<TileObject*>& objects)
 {
 	// Will contain the data we read in
 	Json::Value root;
@@ -47,13 +46,13 @@ bool Map::load(std::string filename, std::list<Object*>& objects)
 	tileset->loadFromFile("maps/" + root["tilesets"][0]["image"].asString());
 
 	// Assign tileset to every object
-	for (Object* object : objects)
-		object->texture = tileset;
+	for (TileObject* objectlist : objects)
+		objectlist->texture = tileset;
 
 	return true;
 }
 
-void Map::loadLayer(Json::Value& layer, std::list<Object*>& objects, TileSize tileSize)
+void Map::loadLayer(Json::Value& layer, std::list<TileObject*>& objects, TileSize tileSize)
 {
 	Layer* tmp = new Layer(tileSize);
 
@@ -61,8 +60,10 @@ void Map::loadLayer(Json::Value& layer, std::list<Object*>& objects, TileSize ti
 	tmp->width = layer["width"].asInt();
 	tmp->height = layer["height"].asInt();
 
+
 	// Clear tilemap
 	memset(tmp->tilemap, 0, sizeof(tmp->tilemap));
+
 
 	// Read in tilemap
 	int idcount = layer["data"].size();
@@ -70,9 +71,11 @@ void Map::loadLayer(Json::Value& layer, std::list<Object*>& objects, TileSize ti
 		tmp->tilemap[i % tmp->width][i / tmp->width] = layer["data"][i].asInt();
 
 	objects.push_back(tmp);
+
+
 }
 
-void Map::loadObjects(Json::Value& root, Json::Value& layer, std::list<Object*>& objects, TileSize tileSize)
+void Map::loadObjects(Json::Value& root, Json::Value& layer, std::list<TileObject*>& objects, TileSize tileSize)
 {
 	// Get all objects from layer
 	for (Json::Value& object : layer["objects"])
@@ -84,11 +87,14 @@ void Map::loadObjects(Json::Value& root, Json::Value& layer, std::list<Object*>&
 		sprite->y = object["y"].asInt() - sprite->tileSize.y;
 		sprite->id = object["gid"].asInt();
 
+
 		// Load animation data
 		Json::Value& tileInfo = root["tilesets"][0]["tiles"][std::to_string(sprite->id - 1)];
 		sprite->frame = 0;
 		sprite->frameCount = tileInfo["animation"].size();
 		sprite->frameDuration = tileInfo["animation"][0]["duration"].asInt();
+
+
 
 		objects.push_back(sprite);
 	}

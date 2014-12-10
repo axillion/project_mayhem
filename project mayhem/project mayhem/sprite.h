@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __sprite_h__
 #define __sprite_h__
 
@@ -6,14 +5,13 @@
 
 #include "object.h"
 
-
-class Sprite : public Object
+class Sprite : public Object, public TileObject
 {
-	//Map needs to access protected/private data
+	// Map needs to access protected/private data
 	friend class Map;
 
 public:
-	Sprite::Sprite(TileSize tileSize) : Object(tileSize) { }
+	Sprite::Sprite(TileSize tileSize) : TileObject(tileSize) { }
 
 	void process(float time);
 	void draw(sf::RenderWindow& window);
@@ -36,8 +34,6 @@ protected:
 
 	// Times the animation
 	sf::Clock clock;
-
-	~Sprite();
 };
-#endif
 
+#endif

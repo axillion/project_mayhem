@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
-
+#include "map.h"
+#include "object.h"
 #include "log.h"
 #include "state_machine.h"
 #include "state_menu.h"
@@ -11,13 +12,16 @@
 #include "state_scores.h"
 #include "state_challenge_mode.h"
 
+
 _state_machine_::_state_machine_()
 {
+	
 	inited = false;
 }
 
 bool _state_machine_::Init()
 {
+
 	if (inited)
 	{
 		LOGW("Engine already initialized");
@@ -33,13 +37,23 @@ bool _state_machine_::Init()
 		return false;
 	}
 
-	//window.create(sf::VideoMode(options.GetScreenWidth(), options.GetScreenHeight()), "Play");
 
-	//window.setVerticalSyncEnabled(true);
-	//window.setFramerateLimit(60);
 
-	states.push(new StateMenu(window, options, resources));
-	states.push(new StatePlaying(window, options, resources));
+	window.create(sf::VideoMode(options.GetScreenWidth(), options.GetScreenHeight()), "Project Mayhem");
+	window.setMouseCursorVisible(false);
+
+	// Double the size of the screen
+	sf::View view = window.getDefaultView();
+	view.setSize(view.getSize().x, view.getSize().y);
+	view.setCenter(view.getCenter().x, view.getCenter().y);
+	window.setView(view);
+	
+	
+	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(60);
+
+
+	states.push(new StateMenu(window, options, resources, view));
 
 	inited = true;
 
@@ -72,8 +86,8 @@ bool _state_machine_::Run()
 				window.close();
 				return true;
 			}
-
-			states.top()->HandleEvent(event);
+			
+			
 		}
 
 		StateBase* newState = states.top()->Process(deltaTime);

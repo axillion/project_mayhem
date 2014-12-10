@@ -8,7 +8,7 @@ class Loader;
 class StatePostLevel : public StateBase
 {
 public:
-	StatePostLevel(sf::RenderWindow& window, const Options& options, const Resources& resources);
+	StatePostLevel(sf::RenderWindow& window, const Options& options, const Resources& resources, const sf::View view);
 	virtual StateBase* Process(float deltaTime);
 
 

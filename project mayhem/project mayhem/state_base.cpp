@@ -1,7 +1,9 @@
 #include "state_base.h"
 
-StateBase::StateBase(sf::RenderWindow& window, const Options& options, const Resources& resources)
-	: window(window), options(options), resources(resources)
+
+
+StateBase::StateBase(sf::RenderWindow& window, const Options& options, const Resources& resources, sf::View& view)
+	: window(window), options(options), resources(resources), view(view)
 { }
 
 StateBase::~StateBase()
@@ -13,13 +15,38 @@ StateBase::~StateBase()
 
 StateBase* StateBase::Process(float deltaTime)
 {
+	std::list <Object*> templist;
+	//std::list<TileObject*> templist2;
+
 	// Do logic
-	for (auto& obj : objects)
+	for (auto& obj : objects){
 		obj->Process(deltaTime, window);
 
-	// Perform hit detection
-	HitDetection();
+		//Copying the objects in Objectlist (bullets etc.) into templist, and then over to objects.
+		for (auto& temp :obj ->Objectlist)
+		{
+			templist.push_back(temp);
+		}
+		obj->Objectlist.clear();
 
+	}
+	for (auto& temp : templist)
+	{
+		objects.push_back(temp);
+	}
+	
+	for (auto it = objects.begin(); it != objects.end();)
+	{
+		if ((*it)->tobeRemoved == true){
+			delete* it;
+			it = objects.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+	
 	return this;
 }
 
@@ -31,6 +58,7 @@ void StateBase::Draw()
 	// Draw objects
 	for (auto obj : objects)
 		obj->Draw(window);
+
 }
 
 
@@ -60,7 +88,3 @@ void StateBase::HitDetection()
 	}
 }
 
-void StateBase::HandleEvent(sf::Event& event)
-{
-
-}
